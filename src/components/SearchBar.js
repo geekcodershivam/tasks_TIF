@@ -15,6 +15,7 @@ const Wrapper = styled.div`
   background: url(${(props) => props.Desktop});
   background-color: #3b3054;
   background-size: cover;
+  z-index: 8;
 `;
 const FormInput = styled.input`
   display: -ms-flexbox;
