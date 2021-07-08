@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Apis from '../utils/Apis';
+import CopyClipboard from './CopyClipboard';
 import Desktop from '../Assets/bg-shorten-desktop.svg';
 
 const Wrapper = styled.div`
@@ -55,18 +56,23 @@ const Error = styled.p`
   padding-left: 49px;
 `;
 
+
 export default function SearchBar() {
   const [value, setValue] = useState('');
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
+
+  const renderList=()=>{
+    return data.map((ele,idx)=>  <CopyClipboard keys={idx} ele={ele}/> )
+  }
 
   const handleOutput = () => {
     setLoading(true);
     if (value !== '') {
       (async () => {
         let response = await Apis.get(`/shorten?url=${value}`);
-        setData(response.data);
+        setData([...data,response.data]);
         setLoading(false);
       })();
     } else {
@@ -93,8 +99,11 @@ export default function SearchBar() {
         <Button onClick={handleOutput}>
           {loading ? 'Shortening....' : 'Shorten It!'}
         </Button>
-        {/* {data?data['result'].code:null} */}
       </Wrapper>
+
+      
+         {renderList()}
+  
     </>
   );
 }
