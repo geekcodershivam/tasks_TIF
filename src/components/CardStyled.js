@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 export const Card = styled.div`
+   position: inherit;
   display: flex;
   height: 680px;
-  position: relative;
   margin-top:-100px;
   width: 100%;
   background-color: #eff1f7;
